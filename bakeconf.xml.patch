@@ -1,0 +1,383 @@
+diff --git a/bakeconf.xml b/bakeconf.xml
+index 2dc19f5..c213b04 100644
+--- a/bakeconf.xml
++++ b/bakeconf.xml
+@@ -5,7 +5,7 @@
+       <source type="git">
+         <attribute name="url" value="https://github.com/ParthPratim/ns-3-dce.git"/>        
+         <attribute name="module_directory" value="ns-3-dce"/>
+-        <attribute name="revision" value="glibc-build"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="ns-3-dev" optional="False"/>
+       <depends_on name="libc-2.31" optional="False"/>
+@@ -26,7 +26,7 @@
+       <source type="git">
+ 		    <attribute name="url" value="https://github.com/ParthPratim/ns-3-dce.git"/>        
+         <attribute name="module_directory" value="ns-3-dce"/>
+-        <attribute name="revision" value="glibc-build"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-dev" optional="False"/>
+       <depends_on name="glibc-2.31" optional="False"/>
+@@ -41,7 +41,7 @@
+       <source type="git">
+ 		  <attribute name="url" value="https://github.com/ParthPratim/ns-3-dce.git"/>        
+         <attribute name="module_directory" value="ns-3-dce"/>
+-        <attribute name="revision" value="glibc-build"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-dev" optional="False"/>
+       <depends_on name="net-next-nuse-4.4.0" optional="False"/>
+@@ -55,8 +55,9 @@
+ 
+     <module name="dce-linux-dev-gcov">
+       <source type="git">
+-		  <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++		  <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-dev" optional="False"/>
+       <depends_on name="net-next-sim-2.6.36" optional="False"/>
+@@ -71,8 +72,9 @@
+ 
+     <module name="dce-linux-inkernel">
+       <source type="git">
+-		  <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++		  <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-dev" optional="False"/>
+       <depends_on name="iproute-2.6.38-fix-01" optional="False"/>
+@@ -86,13 +88,13 @@
+ 
+     <module name="mptcp_v0.86">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/multipath-tcp/mptcp"/>
++        <attribute name="url" value="https://github.com/multipath-tcp/mptcp"/>
+         <attribute name="module_directory" value="mptcp"/>
+         <attribute name="revision" value="mptcp_v0.86"/>
+       </source>
+       <build type="make">
+         <attribute name="supported_os" value="linux;linux2"/>
+-        <attribute name="pre_installation" value="cd $SRCDIR;git remote add dce git://github.com/direct-code-execution/net-next-sim.git; git fetch dce; git merge dce/sim-ns3-3.5.0-branch; echo 'CONFIG_MPTCP=y' >> arch/sim/defconfig; sed 's/CONFIG_SYN_COOKIES=y/\#CONFIG_SYN_COOKIES=y/' arch/sim/defconfig >a; mv a arch/sim/defconfig"/>
++        <attribute name="pre_installation" value="cd $SRCDIR;git remote add dce https://github.com/direct-code-execution/net-next-sim.git; git fetch dce; git merge dce/sim-ns3-3.5.0-branch; echo 'CONFIG_MPTCP=y' >> arch/sim/defconfig; sed 's/CONFIG_SYN_COOKIES=y/\#CONFIG_SYN_COOKIES=y/' arch/sim/defconfig >a; mv a arch/sim/defconfig"/>
+         <attribute name="configure_arguments" value="defconfig ARCH=sim"/>
+         <attribute name="build_arguments" value="library ARCH=sim"/>
+         <attribute name="no_installation" value="True"/>
+@@ -102,13 +104,13 @@
+ 
+     <module name="mptcp_v0.87">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/multipath-tcp/mptcp"/>
++        <attribute name="url" value="https://github.com/multipath-tcp/mptcp"/>
+         <attribute name="module_directory" value="mptcp"/>
+         <attribute name="revision" value="mptcp_v0.87"/>
+       </source>
+       <build type="make">
+         <attribute name="supported_os" value="linux;linux2"/>
+-        <attribute name="pre_installation" value="cd $SRCDIR;git remote add dce git://github.com/direct-code-execution/net-next-sim.git; git fetch dce; git merge dce/sim-ns3-3.10.0-branch; echo 'CONFIG_MPTCP=y' >> arch/sim/defconfig; sed 's/CONFIG_SYN_COOKIES=y/\#CONFIG_SYN_COOKIES=y/' arch/sim/defconfig >a; mv a arch/sim/defconfig"/>
++        <attribute name="pre_installation" value="cd $SRCDIR;git remote add dce https://github.com/direct-code-execution/net-next-sim.git; git fetch dce; git merge dce/sim-ns3-3.10.0-branch; echo 'CONFIG_MPTCP=y' >> arch/sim/defconfig; sed 's/CONFIG_SYN_COOKIES=y/\#CONFIG_SYN_COOKIES=y/' arch/sim/defconfig >a; mv a arch/sim/defconfig"/>
+         <attribute name="configure_arguments" value="defconfig ARCH=sim"/>
+         <attribute name="build_arguments" value="library ARCH=sim"/>
+         <attribute name="no_installation" value="True"/>
+@@ -118,7 +120,7 @@
+ 
+     <module name="iproute-mptcp">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/multipath-tcp/iproute-mptcp.git"/>
++        <attribute name="url" value="https://github.com/multipath-tcp/iproute-mptcp.git"/>
+         <attribute name="module_directory" value="iproute-mptcp"/>
+         <attribute name="revision" value="49687a0dff890bf753a06357959b8bbab18b9d2a"/>
+       </source>
+@@ -399,9 +401,9 @@
+ 
+      <module name="net-next-nuse-4.4.0">
+        <source type="git">
+-         <attribute name="url" value="https://github.com/libos-nuse/net-next-nuse.git"/>
++         <attribute name="url" value="https://github.com/libos-nuse/net-next-nuse"/>
+          <attribute name="module_directory" value="net-next-nuse-4.4.0"/>
+-         <attribute name="revision" value="libos-v4.4"/>
++         <attribute name="revision" value="dba16ad4d1a316ef4865c1b4e1030df8a9cda504"/>
+          <attribute name="fetch_option" value=""/>
+        </source>
+        <depends_on name="bc" optional="False"/>
+@@ -417,8 +419,9 @@
+ 
+      <module name="dce-freebsd-dev">
+        <source type="git">
+-		   <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++		   <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+          <attribute name="module_directory" value="ns-3-dce"/>
++         <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+        </source>
+        <depends_on name="dce-meta-dev" optional="False"/>
+        <depends_on name="freebsd-sim-10.0.0" optional="False"/>
+@@ -430,7 +433,7 @@
+ 
+      <module name="freebsd-sim-dev">
+        <source type="git">
+-         <attribute name="url" value="git://github.com/direct-code-execution/freebsd-sim.git"/>
++         <attribute name="url" value="https://github.com/direct-code-execution/freebsd-sim.git"/>
+          <attribute name="module_directory" value="freebsd-sim"/>
+          <attribute name="revision" value="sim-ns3-dev-branch"/>
+          <attribute name="fetch_option" value="--depth=1"/>
+@@ -445,7 +448,7 @@
+ 
+      <module name="freebsd-sim-10.0.0">
+        <source type="git">
+-         <attribute name="url" value="git://github.com/direct-code-execution/freebsd-sim.git"/>
++         <attribute name="url" value="https://github.com/direct-code-execution/freebsd-sim.git"/>
+          <attribute name="module_directory" value="freebsd-sim"/>
+          <attribute name="revision" value="sim-ns3-10.0.0"/>
+          <attribute name="fetch_option" value="--depth=1"/>
+@@ -527,7 +530,7 @@
+      <!-- umip related modules -->
+      <module name="dce-umip-dev">
+        <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce-umip"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce-umip"/>
+         <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-umip/"/>
+        </source>
+        <depends_on name="dce-quagga-dev" optional="False"/>
+@@ -541,7 +544,7 @@
+ 
+      <module name="umip">
+        <source type="git">
+-         <attribute name="url" value="git://github.com/direct-code-execution/umip.git"/>
++         <attribute name="url" value="https://github.com/direct-code-execution/umip.git"/>
+          <attribute name="revision" value="v1.0"/>
+        </source>
+        <build type="autotools">
+@@ -556,7 +559,7 @@
+     <!-- quagga related modules -->
+     <module name="dce-quagga-dev">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce-quagga"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce-quagga"/>
+         <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-quagga/"/>
+       </source>
+        <depends_on name="dce-meta-dev" optional="False"/>
+@@ -608,7 +611,7 @@
+ 
+     <module name="click-dev">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/kohler/click.git"/>
++        <attribute name="url" value="https://github.com/kohler/click.git"/>
+       </source>
+       <build type="autotools" objdir="objdir">
+         <attribute name="configure_arguments" value="../configure --prefix=$INSTALLDIR --exec-prefix=$INSTALLDIR -enable-userlevel --disable-linuxmodule --enable-nsclick --enable-wifi"/>
+@@ -618,7 +621,7 @@
+ 
+     <module name="click-ns-3.17">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/kohler/click.git"/>
++        <attribute name="url" value="https://github.com/kohler/click.git"/>
+         <attribute name="revision" value="056d2c0a75baaf196fca2622ff9eb80f28038bc0"/>
+       </source>
+       <build type="autotools" objdir="objdir">
+@@ -629,7 +632,7 @@
+ 
+     <module name="click-ns-3.20">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/kohler/click.git"/>
++        <attribute name="url" value="https://github.com/kohler/click.git"/>
+         <attribute name="revision" value="0ac37dc30b0386f3c3d2d990f3d855b8887b4a13"/>
+       </source>
+       <build type="autotools" objdir="objdir">
+@@ -640,7 +643,7 @@
+ 
+     <module name="click-ns-3.25">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/kohler/click.git"/>
++        <attribute name="url" value="https://github.com/kohler/click.git"/>
+         <attribute name="revision" value="5399eabf704f041c9cd8fc5d932c1e77bc9526de"/>
+       </source>
+       <build type="autotools" objdir="objdir">
+@@ -651,7 +654,7 @@
+ 
+     <module name="click-ns-3.34">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/kohler/click.git"/>
++        <attribute name="url" value="https://github.com/kohler/click.git"/>
+         <attribute name="revision" value="593d10826cf5f945a78307d095ffb0897de515de"/>
+       </source>
+       <build type="autotools" objdir="objdir">
+@@ -662,7 +665,7 @@
+ 
+     <module name="click-2.0.1">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/kohler/click.git"/>
++        <attribute name="url" value="https://github.com/kohler/click.git"/>
+         <attribute name="revision" value="8847f68461856418c409f4de4165412b3ec2cade"/>
+ 
+       </source>
+@@ -774,7 +777,7 @@
+ 
+     <module name="gccxml-ns3">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/gccxml/gccxml.git"/>
++        <attribute name="url" value="https://github.com/gccxml/gccxml.git"/>
+         <attribute name="module_directory" value="gccxml"/>
+       </source>
+       <build type="cmake" objdir="objdir">
+@@ -1357,7 +1360,7 @@
+ 
+     <module name="libc-2.31">
+       <source type="system_dependency">
+-        <attribute name="file_test" value="/usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so"/>
++        <attribute name="file_test" value="/lib/x86_64-linux-gnu/ld-2.31.so"/>
+         <attribute name="more_information" value="Didn't find:   system libc 2.31; please install it."/>
+       </source>
+       <depends_on name="libc" optional="False"/>
+@@ -1460,23 +1463,18 @@
+       <build type="none"/>
+   </module>
+ 
+-  <module name="ns-3-dev">
++    <module name="ns-3-dev">
+       <source type="git">
+-        <attribute name="url" value="https://gitlab.com/nsnam/ns-3-dev.git"/>
+-        <attribute name="branch" value="master"/>
++        <attribute name="url" value="https://github.com/nsnam/ns-3-dev-git"/>
++        <attribute name="revision" value="f920aad547585c0f9bb99e4eb72289f20ae09c46"/> 
+       </source>
+       <depends_on name="netanim" optional="True"/>
+       <depends_on name="pybindgen" optional="True"/>
+-      <depends_on name="glibc-2.25" optional="False"/>
+-      <depends_on name="linux-dev" optional="False"/>
+-      <depends_on name="pyviz-gtk3-prerequisites" optional="True"/>
+-      <depends_on name="cmake" optional="False"/>
+-      <build type="cmake" objdir="cmake_cache">
+-        <!-- Note: -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLDIR is added internally by bake -->
+-        <!-- Note: bake uses the default cmake generator (Unix Makefiles) -->
+-        <attribute name="configure_arguments" value="-DCMAKE_BUILD_TYPE=debug -DNS3_NATIVE_OPTIMIZATIONS=OFF -DNS3_EXAMPLES=ON -DNS3_TESTS=ON"/>
++      <depends_on name="pyviz-prerequisites" optional="True"/>
++      <build type="waf" objdir="yes">
++        <attribute name="configure_arguments" value="configure --prefix=$INSTALLDIR --enable-tests"/>
+       </build>
+-  </module>
++    </module>
+ 
+     <module name="ns-3.24">
+       <source type="mercurial">
+@@ -2170,9 +2168,9 @@
+     <!-- dce-1.10 -->
+     <module name="dce-meta-1.10">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
+-        <attribute name="revision" value="dce-1.10"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="ns-3.28" optional="False"/>
+       <depends_on name="elf-loader" optional="True"/>
+@@ -2188,9 +2186,9 @@
+ 
+     <module name="dce-ns3-1.10">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
+-        <attribute name="revision" value="dce-1.10"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-1.10" optional="False"/>
+       <build type="waf" objdir="build">
+@@ -2201,9 +2199,9 @@
+ 
+     <module name="dce-linux-1.10">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
+-        <attribute name="revision" value="dce-1.10"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-1.10" optional="False"/>
+       <depends_on name="net-next-nuse-4.4.0" optional="False"/>
+@@ -2217,9 +2215,9 @@
+ 
+     <module name="dce-freebsd-1.10">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
+-        <attribute name="revision" value="dce-1.10"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-1.10" optional="False"/>
+       <depends_on name="freebsd-sim-10.0.0" optional="False"/>
+@@ -2231,7 +2229,7 @@
+ 
+     <module name="dce-quagga-1.10">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce-quagga"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce-quagga"/>
+         <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-quagga/"/>
+         <attribute name="revision" value="dce-1.10"/>
+       </source>
+@@ -2246,7 +2244,7 @@
+ 
+     <module name="dce-umip-1.10">
+       <source type="git">
+-       <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce-umip"/>
++       <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce-umip"/>
+        <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-umip/"/>
+        <attribute name="revision" value="dce-1.10"/>
+       </source>
+@@ -2261,7 +2259,7 @@
+ 
+     <module name="dce-umip-1.11">
+       <source type="git">
+-       <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce-umip"/>
++       <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce-umip"/>
+        <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-umip/"/>
+        <attribute name="revision" value="dce-1.11"/>
+       </source>
+@@ -2277,9 +2275,9 @@
+     <!-- dce-1.11 -->
+     <module name="dce-meta-1.11">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
+-        <attribute name="revision" value="dce-1.11"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="ns-3.34" optional="False"/>
+       <depends_on name="elf-loader" optional="True"/>
+@@ -2295,8 +2293,9 @@
+ 
+     <module name="dce-ns3-1.11">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-1.11" optional="False"/>
+       <build type="waf" objdir="build">
+@@ -2307,8 +2306,9 @@
+ 
+     <module name="dce-linux-1.11">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce"/>
+         <attribute name="module_directory" value="ns-3-dce"/>
++        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
+       </source>
+       <depends_on name="dce-meta-1.11" optional="False"/>
+       <depends_on name="net-next-nuse-4.4.0" optional="False"/>
+@@ -2322,7 +2322,7 @@
+ 
+     <module name="dce-quagga-1.11">
+       <source type="git">
+-        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce-quagga"/>
++        <attribute name="url" value="https://github.com/direct-code-execution/ns-3-dce-quagga"/>
+         <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-quagga/"/>
+         <attribute name="revision" value="dce-1.11"/>
+       </source>
