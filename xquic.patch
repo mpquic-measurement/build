@@ -1,0 +1,51 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e4c0a80..03bfe1c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -98,8 +98,8 @@ endif()
+
+
+ # C_FLAGS
+-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O2 -std=gnu11 -Wall -DNDEBUG_PRINT -DNPRINT_MALLOC ")
+-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -g -O0 -std=gnu11 -Wall -DNDEBUG_PRINT -DNPRINT_MALLOC -DXQC_DEBUG ")
++set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O2 -std=gnu11 -Wall -DNDEBUG_PRINT -DNPRINT_MALLOC -fPIC ")
++set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -g -O0 -std=gnu11 -Wall -DNDEBUG_PRINT -DNPRINT_MALLOC -DXQC_DEBUG -fPIC ")
+
+ if(NOT CMAKE_SYSTEM_NAME MATCHES "Windows")
+     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wno-unused -Wno-pointer-sign -Wno-format-security ")
+@@ -302,6 +302,8 @@ else()
+         ${SSL_LIB_PATH}
+         "-Wl,--no-whole-archive"
+         -lpthread
+     )
+ endif()
+
+@@ -387,6 +389,13 @@ if (XQC_ENABLE_TESTING)
+         link_directories( /usr/local/lib )
+     endif()
+
++    list(APPEND XQUIC_LINKER_FLAGS -rdynamic -pie)
++
++    target_link_options(test_server PRIVATE ${XQUIC_LINKER_FLAGS})
++    target_link_options(test_client PRIVATE ${XQUIC_LINKER_FLAGS})
++    target_link_options(demo_server PRIVATE ${XQUIC_LINKER_FLAGS})
++    target_link_options(demo_client PRIVATE ${XQUIC_LINKER_FLAGS})
++
+     if(PLATFORM STREQUAL "mac32")
+         target_link_libraries(test_server xquic  -lm ${CMAKE_CURRENT_SOURCE_DIR}/../libevent32/lib/libevent.dylib)
+         target_link_libraries(test_client xquic  -lm ${CMAKE_CURRENT_SOURCE_DIR}/../libevent32/lib/libevent.dylib)
+@@ -403,10 +412,10 @@ if (XQC_ENABLE_TESTING)
+         target_link_libraries(demo_server xquic ${EVENT_LIB_PATH} -lm)
+         target_link_libraries(demo_client xquic ${EVENT_LIB_PATH} -lm)
+     else()
+-        target_link_libraries(test_server xquic -levent -lm)
+-        target_link_libraries(test_client xquic -levent -lm)
+-        target_link_libraries(demo_server xquic -levent -lm)
+-        target_link_libraries(demo_client xquic -levent -lm)
++        target_link_libraries(test_server xquic -levent -lm -rdynamic -pie)
++        target_link_libraries(test_client xquic -levent -lm -rdynamic -pie)
++        target_link_libraries(demo_server xquic -levent -lm -rdynamic -pie)
++        target_link_libraries(demo_client xquic -levent -lm -rdynamic -pie)
+     endif()
+
+ endif()
