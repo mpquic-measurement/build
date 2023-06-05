@@ -33,9 +33,9 @@ RUN git apply < ns3-dce.patch && \
 
 # OpenSSL
 WORKDIR /home/ns3dce
-RUN wget https://www.openssl.org/source/openssl-1.1.1d.tar.gz && \
-    tar xf openssl-1.1.1d.tar.gz
-WORKDIR openssl-1.1.1d
+RUN wget https://www.openssl.org/source/openssl-1.1.1u.tar.gz && \
+    tar xf openssl-1.1.1u.tar.gz
+WORKDIR openssl-1.1.1u
 RUN ./config && \
     make -j$(nproc) && \
     sudo make install
@@ -53,9 +53,9 @@ RUN ./configure --disable-bsdtar --disable-bsdcpio --without-openssl && \
 
 # PicoTLS
 WORKDIR /home/ns3dce
-RUN git clone https://github.com/p-quic/picotls.git
+RUN git clone https://github.com/h2o/picotls.git
 WORKDIR picotls
-RUN git checkout 62c7d6c43d68bc411cd3edf41d537ccae9178999
+RUN git checkout 9a3a311b2db4ebfa91ca365a954177541f02c5b3
 RUN git submodule init && \
     git submodule update
 RUN sed -i 's/${CMAKE_C_FLAGS}/${CMAKE_C_FLAGS} -fPIC/g' CMakeLists.txt
