@@ -17,6 +17,8 @@ index e4c0a80..03bfe1c 100644
          ${SSL_LIB_PATH}
          "-Wl,--no-whole-archive"
          -lpthread
++       #-rdynamic
++       #-pie
      )
  endif()
 
