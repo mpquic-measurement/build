@@ -1,6 +1,6 @@
 FROM ns3-dce-fec:20.04
 
-RUN sudo apt-get update && sudo apt-get install -y tree libcurl4-openssl-dev golang libevent-dev
+RUN sudo apt-get update && sudo apt-get install -y vim nano tree libcurl4-openssl-dev golang libevent-dev
 
 RUN git clone https://github.com/mpquic-measurement/picoquic.git
 
