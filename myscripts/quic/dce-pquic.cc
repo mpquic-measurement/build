@@ -117,8 +117,8 @@ int main(int argc, char *argv[]) {
 
     if (systemId == node0->GetSystemId()) {
         // Launch picoquicdemo in server mode on node 0
-        //dce.SetBinary("test_server");
-        dce.SetBinary("picoquicdemo");
+        dce.SetBinary("test_server");
+        //dce.SetBinary("picoquicdemo");
         //dce.SetBinary("ssltest");
         //dce.SetBinary("picoquic_sample");
         //dce.AddEnvironment ("HOME", "/");
@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
         dce.ResetArguments();
         dce.ResetEnvironment();
 
-	dce.ParseArguments("-k server-key.pem -c ca-cert.pem -w /");
+	//dce.ParseArguments("-k server-key.pem -c ca-cert.pem -w /");
         //dce.ParseArguments("server 4443 /ca-cert.pem /server-key.pem /");
 
 	// ./picoquic_sample server 4443 server.crt server.key /home/ns3dce/picoquic
@@ -145,7 +145,7 @@ int main(int argc, char *argv[]) {
     }
     if (systemId == node1->GetSystemId()) {
         // Launch picoquicdemo in client mode on node 1
-        dce.SetBinary("picoquicdemo");
+        dce.SetBinary("test_client");
         //dce.SetBinary("picoquic_sample");
         // dce.SetUid(1);
         // dce.SetEuid (1);
@@ -154,7 +154,7 @@ int main(int argc, char *argv[]) {
     	dce.ResetArguments();
         dce.ResetEnvironment();
         // ./picoquicdemo -n test -o /tmp 127.0.0.1 4443 /iperf
-        dce.ParseArguments("-n test -o /tmp 10.1.1.1 4443 /ca-cert.pem");
+        //dce.ParseArguments("-n test -o /tmp 10.1.1.1 4443 /ca-cert.pem");
 	
     	//dce.AddArgument("-n");
         //dce.AddArgument("test");
