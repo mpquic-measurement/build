@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index e4c0a80..ea055c9 100644
+index e4c0a80..4330742 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -98,7 +98,7 @@ endif()
@@ -16,7 +16,7 @@ index e4c0a80..ea055c9 100644
      target_link_libraries(
          xquic
 -        "-ldl -Wl,--whole-archive -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/scripts/xquic.lds"
-+       #"-ldl -Wl,--whole-archive -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/scripts/xquic.lds"
++        "-ldl -Wl,--whole-archive"
          ${SSL_LIB_PATH}
          "-Wl,--no-whole-archive"
          -lpthread
