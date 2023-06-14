@@ -48,7 +48,9 @@ RUN ./bake/bake.py configure -e dce-linux-dev && \
 
 WORKDIR /home/ns3dce/dce-linux-dev/source/ns-3-dev
 COPY ns3.patch .
-RUN git apply < ns3.patch
+COPY ns3.patch.2 .
+RUN git apply < ns3.patch && \
+    git apply < ns3.patch.2
 
 WORKDIR /home/ns3dce/dce-linux-dev
 
