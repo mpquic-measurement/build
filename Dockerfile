@@ -17,7 +17,7 @@ WORKDIR /home/ns3dce
 RUN git clone https://github.com/alibaba/xquic.git && \
     cd xquic && \
     git checkout 78cf6d1e50d4ebe8fb51fddfbdb55d36a5798386 && \
-    cd xquic && git clone https://github.com/google/boringssl.git ./third_party/boringssl && \
+    git clone https://github.com/google/boringssl.git ./third_party/boringssl && \
     cd ./third_party/boringssl && \
     git checkout 6a7d8b54725d6e762f758726464da2dc2e112435 && \
     mkdir -p build && cd build && \
