@@ -1,8 +1,8 @@
 diff --git a/bakeconf.xml b/bakeconf.xml
-index 2dc19f5..c213b04 100644
+index 2dc19f5..8992dc3 100644
 --- a/bakeconf.xml
 +++ b/bakeconf.xml
-@@ -5,7 +5,7 @@
+@@ -5,11 +5,11 @@
        <source type="git">
          <attribute name="url" value="https://github.com/ParthPratim/ns-3-dce.git"/>        
          <attribute name="module_directory" value="ns-3-dce"/>
@@ -10,8 +10,14 @@ index 2dc19f5..c213b04 100644
 +        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
        </source>
        <depends_on name="ns-3-dev" optional="False"/>
-       <depends_on name="libc-2.31" optional="False"/>
-@@ -26,7 +26,7 @@
+-      <depends_on name="libc-2.31" optional="False"/>
+-      <depends_on name="glibc-2.31" optional="False"/>
++      <depends_on name="libc-2.35" optional="False"/>
++      <depends_on name="glibc-2.35" optional="False"/>
+       <depends_on name="linux-dev" optional="False"/>
+       <depends_on name="elf-loader" optional="True"/>
+       <depends_on name="libaspect" optional="True"/>
+@@ -26,10 +26,10 @@
        <source type="git">
  		    <attribute name="url" value="https://github.com/ParthPratim/ns-3-dce.git"/>        
          <attribute name="module_directory" value="ns-3-dce"/>
@@ -19,8 +25,12 @@ index 2dc19f5..c213b04 100644
 +        <attribute name="revision" value="87a3688d22d2824ca0da4c787dbde07ecd9e3abe"/>
        </source>
        <depends_on name="dce-meta-dev" optional="False"/>
-       <depends_on name="glibc-2.31" optional="False"/>
-@@ -41,7 +41,7 @@
+-      <depends_on name="glibc-2.31" optional="False"/>
++      <depends_on name="glibc-2.35" optional="False"/>
+       <depends_on name="linux-dev" optional="False"/>
+       <build type="waf" objdir="build">
+         <attribute name="supported_os" value="linux;linux2"/>
+@@ -41,11 +41,11 @@
        <source type="git">
  		  <attribute name="url" value="https://github.com/ParthPratim/ns-3-dce.git"/>        
          <attribute name="module_directory" value="ns-3-dce"/>
@@ -29,6 +39,11 @@ index 2dc19f5..c213b04 100644
        </source>
        <depends_on name="dce-meta-dev" optional="False"/>
        <depends_on name="net-next-nuse-4.4.0" optional="False"/>
+-      <depends_on name="iproute2-4.4.0" optional="False"/>
++      <depends_on name="iproute2-5.19.0" optional="False"/>
+       <depends_on name="lksctp-dev" optional="True"/>
+       <build type="waf" objdir="build" sourcedir="ns-3-dce">
+         <attribute name="supported_os" value="linux;linux2"/>
 @@ -55,8 +55,9 @@
  
      <module name="dce-linux-dev-gcov">
@@ -92,7 +107,67 @@ index 2dc19f5..c213b04 100644
          <attribute name="module_directory" value="iproute-mptcp"/>
          <attribute name="revision" value="49687a0dff890bf753a06357959b8bbab18b9d2a"/>
        </source>
-@@ -399,9 +401,9 @@
+@@ -185,15 +187,14 @@
+       </build>
+      </module>
+     
+-    <module name="glibc-2.31">
++    <module name="glibc-2.35">
+       <source type="git">
+         <attribute name="url" value="https://sourceware.org/git/glibc.git" />
+-        <attribute name="revision" value="release/2.31/master" />
++        <attribute name="revision" value="release/2.35/master" />
+         <attribute name="module_directory" value="glibc" />
+       </source>
+       <depends_on name="gawk" optional="False"/>
+       <build type="inline" classname="GlibcModuleBuild">
+-        <attribute name="patch" value="$SRCDIR/../ns-3-dce/utils/glibc-2.31-disable-security-checks.patch"/>
+         <attribute name="pre_installation" value="mkdir -p $INSTALLDIR/glibc-build;cd $INSTALLDIR/glibc-build;$SRCDIR/configure --prefix=/usr --disable-werror" />        
+         <code>class GlibcModuleBuild(InlineModuleBuild):
+     def __init__(self):
+@@ -203,7 +204,7 @@
+            install_dir = env.installdir + '/glibc'
+            dest_dir = 'DESTDIR=' + install_dir
+            env.run(['mkdir', '-p', install_dir], directory=env.srcdir)
+-           env.run(['make'], directory=build_dir)
++           env.run(['make', '-j12'], directory=build_dir)
+            env.run(['make', 'install', dest_dir], directory=build_dir)
+     def clean(self, env):
+            build_dir = env.installdir + '/glibc-build'
+@@ -219,7 +220,7 @@
+         <attribute name="revision" value="master" />
+         <attribute name="module_directory" value="linux" />
+       </source>
+-      <depends_on name="glibc-2.31" optional="False" />
++      <depends_on name="glibc-2.35" optional="False" />
+       <build type="make" objdir="yes">
+         <attribute name="build_arguments" value="headers_install INSTALL_HDR_PATH=$INSTALLDIR/glibc/usr" />
+         <attribute name="no_installation" value="True"/>
+@@ -329,11 +330,11 @@
+       </build>
+      </module>
+ 
+-     <module name="iproute2-4.4.0">
++     <module name="iproute2-5.19.0">
+        <source type="git">
+          <attribute name="url" value="https://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git"/>
+-         <attribute name="revision" value="v4.4.0"/>
+-         <attribute name="module_directory" value="iproute2-4.4.0"/>
++         <attribute name="revision" value="v5.19.0"/>
++         <attribute name="module_directory" value="iproute2-5.19.0"/>
+        </source>
+        <depends_on name="libdb-dev" optional="False"/>
+        <depends_on name="bison" optional="False"/>
+@@ -345,7 +346,7 @@
+          <attribute name="LDFLAGS" value="-pie"/>
+          <attribute name="ignore_predefined_flags" value="True"/>
+          <attribute name="install_arguments" value="DESTDIR=$INSTALLDIR" />
+-         <attribute name="build_arguments" value="DEFINES+=-I$SRCDIR/../../../../../../arch/lib/include/ DEFINES+=-I$SRCDIR/../../../../../../arch/lib/include/generated/ DEFINES+=-I$SRCDIR/../../../../../../include/uapi/ DEFINES+=-I$SRCDIR/../../../../../../include CCOPTS+=-fpic CCOPTS+=-D_GNU_SOURCE CCOPTS+=-O0 CCOPTS+=-U_FORTIFY_SOURCE CCOPTS+=-g CCOPTS+=-DUINT16_MAX=65535 LDFLAGS=-pie LDFLAGS+=-rdynamic"/>
++         <attribute name="build_arguments" value="DEFINES+=-I$SRCDIR/../../../../../../arch/lib/include/ DEFINES+=-I$SRCDIR/../../../../../../arch/lib/include/generated/ DEFINES+=-I$SRCDIR/../../../../../../include/uapi/ CCOPTS+=-fpic CCOPTS+=-D_GNU_SOURCE CCOPTS+=-O0 CCOPTS+=-U_FORTIFY_SOURCE CCOPTS+=-g CCOPTS+=-DUINT16_MAX=65535 LDFLAGS=-pie LDFLAGS+=-rdynamic"/>
+        </build>
+      </module>
+ 
+@@ -399,9 +400,9 @@
  
       <module name="net-next-nuse-4.4.0">
         <source type="git">
@@ -104,7 +179,7 @@ index 2dc19f5..c213b04 100644
           <attribute name="fetch_option" value=""/>
         </source>
         <depends_on name="bc" optional="False"/>
-@@ -417,8 +419,9 @@
+@@ -417,8 +418,9 @@
  
       <module name="dce-freebsd-dev">
         <source type="git">
@@ -115,7 +190,7 @@ index 2dc19f5..c213b04 100644
         </source>
         <depends_on name="dce-meta-dev" optional="False"/>
         <depends_on name="freebsd-sim-10.0.0" optional="False"/>
-@@ -430,7 +433,7 @@
+@@ -430,7 +432,7 @@
  
       <module name="freebsd-sim-dev">
         <source type="git">
@@ -124,7 +199,7 @@ index 2dc19f5..c213b04 100644
           <attribute name="module_directory" value="freebsd-sim"/>
           <attribute name="revision" value="sim-ns3-dev-branch"/>
           <attribute name="fetch_option" value="--depth=1"/>
-@@ -445,7 +448,7 @@
+@@ -445,7 +447,7 @@
  
       <module name="freebsd-sim-10.0.0">
         <source type="git">
@@ -133,7 +208,7 @@ index 2dc19f5..c213b04 100644
           <attribute name="module_directory" value="freebsd-sim"/>
           <attribute name="revision" value="sim-ns3-10.0.0"/>
           <attribute name="fetch_option" value="--depth=1"/>
-@@ -527,7 +530,7 @@
+@@ -527,7 +529,7 @@
       <!-- umip related modules -->
       <module name="dce-umip-dev">
         <source type="git">
@@ -142,7 +217,7 @@ index 2dc19f5..c213b04 100644
          <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-umip/"/>
         </source>
         <depends_on name="dce-quagga-dev" optional="False"/>
-@@ -541,7 +544,7 @@
+@@ -541,7 +543,7 @@
  
       <module name="umip">
         <source type="git">
@@ -151,7 +226,7 @@ index 2dc19f5..c213b04 100644
           <attribute name="revision" value="v1.0"/>
         </source>
         <build type="autotools">
-@@ -556,7 +559,7 @@
+@@ -556,7 +558,7 @@
      <!-- quagga related modules -->
      <module name="dce-quagga-dev">
        <source type="git">
@@ -160,7 +235,7 @@ index 2dc19f5..c213b04 100644
          <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-quagga/"/>
        </source>
         <depends_on name="dce-meta-dev" optional="False"/>
-@@ -608,7 +611,7 @@
+@@ -608,7 +610,7 @@
  
      <module name="click-dev">
        <source type="git">
@@ -169,7 +244,7 @@ index 2dc19f5..c213b04 100644
        </source>
        <build type="autotools" objdir="objdir">
          <attribute name="configure_arguments" value="../configure --prefix=$INSTALLDIR --exec-prefix=$INSTALLDIR -enable-userlevel --disable-linuxmodule --enable-nsclick --enable-wifi"/>
-@@ -618,7 +621,7 @@
+@@ -618,7 +620,7 @@
  
      <module name="click-ns-3.17">
        <source type="git">
@@ -178,7 +253,7 @@ index 2dc19f5..c213b04 100644
          <attribute name="revision" value="056d2c0a75baaf196fca2622ff9eb80f28038bc0"/>
        </source>
        <build type="autotools" objdir="objdir">
-@@ -629,7 +632,7 @@
+@@ -629,7 +631,7 @@
  
      <module name="click-ns-3.20">
        <source type="git">
@@ -187,7 +262,7 @@ index 2dc19f5..c213b04 100644
          <attribute name="revision" value="0ac37dc30b0386f3c3d2d990f3d855b8887b4a13"/>
        </source>
        <build type="autotools" objdir="objdir">
-@@ -640,7 +643,7 @@
+@@ -640,7 +642,7 @@
  
      <module name="click-ns-3.25">
        <source type="git">
@@ -196,7 +271,7 @@ index 2dc19f5..c213b04 100644
          <attribute name="revision" value="5399eabf704f041c9cd8fc5d932c1e77bc9526de"/>
        </source>
        <build type="autotools" objdir="objdir">
-@@ -651,7 +654,7 @@
+@@ -651,7 +653,7 @@
  
      <module name="click-ns-3.34">
        <source type="git">
@@ -205,7 +280,7 @@ index 2dc19f5..c213b04 100644
          <attribute name="revision" value="593d10826cf5f945a78307d095ffb0897de515de"/>
        </source>
        <build type="autotools" objdir="objdir">
-@@ -662,7 +665,7 @@
+@@ -662,7 +664,7 @@
  
      <module name="click-2.0.1">
        <source type="git">
@@ -214,7 +289,7 @@ index 2dc19f5..c213b04 100644
          <attribute name="revision" value="8847f68461856418c409f4de4165412b3ec2cade"/>
  
        </source>
-@@ -774,7 +777,7 @@
+@@ -774,7 +776,7 @@
  
      <module name="gccxml-ns3">
        <source type="git">
@@ -223,16 +298,30 @@ index 2dc19f5..c213b04 100644
          <attribute name="module_directory" value="gccxml"/>
        </source>
        <build type="cmake" objdir="objdir">
-@@ -1357,7 +1360,7 @@
+@@ -1345,7 +1347,7 @@
  
-     <module name="libc-2.31">
+     <module name="libc-debug">
+       <source type="system_dependency">
+-        <attribute name="file_test" value="/usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so or /usr/lib/debug/lib64/ld-linux-x86-64.so.2.debug or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.25.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.24.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so"/>
++        <attribute name="file_test" value="/usr/lib/debug/lib/x86_64-linux-gnu/ld-2.35.so or /usr/lib/debug/lib64/ld-linux-x86-64.so.2.debug or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.25.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.24.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so"/>
+         <attribute name="name_apt-get" value="libc6-dbg"/>
+         <attribute name="name_yum" value="glibc-debuginfo"/>
+         <attribute name="more_information" value="Didn't find:   libc debug package; please install it."/>
+@@ -1355,10 +1357,10 @@
+       </build>
+     </module>
+ 
+-    <module name="libc-2.31">
++    <module name="libc-2.35">
        <source type="system_dependency">
 -        <attribute name="file_test" value="/usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so"/>
-+        <attribute name="file_test" value="/lib/x86_64-linux-gnu/ld-2.31.so"/>
-         <attribute name="more_information" value="Didn't find:   system libc 2.31; please install it."/>
+-        <attribute name="more_information" value="Didn't find:   system libc 2.31; please install it."/>
++        <attribute name="file_test" value="/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"/>
++        <attribute name="more_information" value="Didn't find:   system libc 2.35; please install it."/>
        </source>
        <depends_on name="libc" optional="False"/>
-@@ -1460,23 +1463,18 @@
+       <build type="none" objdir="no">
+@@ -1460,23 +1462,18 @@
        <build type="none"/>
    </module>
  
@@ -242,7 +331,7 @@ index 2dc19f5..c213b04 100644
 -        <attribute name="url" value="https://gitlab.com/nsnam/ns-3-dev.git"/>
 -        <attribute name="branch" value="master"/>
 +        <attribute name="url" value="https://github.com/nsnam/ns-3-dev-git"/>
-+        <attribute name="revision" value="f920aad547585c0f9bb99e4eb72289f20ae09c46"/> 
++        <attribute name="revision" value="f920aad547585c0f9bb99e4eb72289f20ae09c46"/>
        </source>
        <depends_on name="netanim" optional="True"/>
        <depends_on name="pybindgen" optional="True"/>
@@ -263,7 +352,7 @@ index 2dc19f5..c213b04 100644
  
      <module name="ns-3.24">
        <source type="mercurial">
-@@ -2170,9 +2168,9 @@
+@@ -2170,9 +2167,9 @@
      <!-- dce-1.10 -->
      <module name="dce-meta-1.10">
        <source type="git">
@@ -275,7 +364,7 @@ index 2dc19f5..c213b04 100644
        </source>
        <depends_on name="ns-3.28" optional="False"/>
        <depends_on name="elf-loader" optional="True"/>
-@@ -2188,9 +2186,9 @@
+@@ -2188,9 +2185,9 @@
  
      <module name="dce-ns3-1.10">
        <source type="git">
@@ -287,7 +376,7 @@ index 2dc19f5..c213b04 100644
        </source>
        <depends_on name="dce-meta-1.10" optional="False"/>
        <build type="waf" objdir="build">
-@@ -2201,9 +2199,9 @@
+@@ -2201,13 +2198,13 @@
  
      <module name="dce-linux-1.10">
        <source type="git">
@@ -299,7 +388,12 @@ index 2dc19f5..c213b04 100644
        </source>
        <depends_on name="dce-meta-1.10" optional="False"/>
        <depends_on name="net-next-nuse-4.4.0" optional="False"/>
-@@ -2217,9 +2215,9 @@
+-      <depends_on name="iproute2-4.4.0" optional="False"/>
++      <depends_on name="iproute2-5.19.0" optional="False"/>
+       <depends_on name="lksctp-dev" optional="True"/>
+       <build type="waf" objdir="objdir" sourcedir="ns-3-dce">
+         <attribute name="supported_os" value="linux;linux2"/>
+@@ -2217,9 +2214,9 @@
  
      <module name="dce-freebsd-1.10">
        <source type="git">
@@ -311,7 +405,7 @@ index 2dc19f5..c213b04 100644
        </source>
        <depends_on name="dce-meta-1.10" optional="False"/>
        <depends_on name="freebsd-sim-10.0.0" optional="False"/>
-@@ -2231,7 +2229,7 @@
+@@ -2231,7 +2228,7 @@
  
      <module name="dce-quagga-1.10">
        <source type="git">
@@ -320,7 +414,7 @@ index 2dc19f5..c213b04 100644
          <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-quagga/"/>
          <attribute name="revision" value="dce-1.10"/>
        </source>
-@@ -2246,7 +2244,7 @@
+@@ -2246,7 +2243,7 @@
  
      <module name="dce-umip-1.10">
        <source type="git">
@@ -329,7 +423,7 @@ index 2dc19f5..c213b04 100644
         <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-umip/"/>
         <attribute name="revision" value="dce-1.10"/>
        </source>
-@@ -2261,7 +2259,7 @@
+@@ -2261,7 +2258,7 @@
  
      <module name="dce-umip-1.11">
        <source type="git">
@@ -338,7 +432,7 @@ index 2dc19f5..c213b04 100644
         <attribute name="module_directory" value="ns-3-dce/myscripts/ns-3-dce-umip/"/>
         <attribute name="revision" value="dce-1.11"/>
        </source>
-@@ -2277,9 +2275,9 @@
+@@ -2277,9 +2274,9 @@
      <!-- dce-1.11 -->
      <module name="dce-meta-1.11">
        <source type="git">
@@ -350,7 +444,7 @@ index 2dc19f5..c213b04 100644
        </source>
        <depends_on name="ns-3.34" optional="False"/>
        <depends_on name="elf-loader" optional="True"/>
-@@ -2295,8 +2293,9 @@
+@@ -2295,8 +2292,9 @@
  
      <module name="dce-ns3-1.11">
        <source type="git">
@@ -361,7 +455,7 @@ index 2dc19f5..c213b04 100644
        </source>
        <depends_on name="dce-meta-1.11" optional="False"/>
        <build type="waf" objdir="build">
-@@ -2307,8 +2306,9 @@
+@@ -2307,12 +2305,13 @@
  
      <module name="dce-linux-1.11">
        <source type="git">
@@ -372,7 +466,12 @@ index 2dc19f5..c213b04 100644
        </source>
        <depends_on name="dce-meta-1.11" optional="False"/>
        <depends_on name="net-next-nuse-4.4.0" optional="False"/>
-@@ -2322,7 +2322,7 @@
+-      <depends_on name="iproute2-4.4.0" optional="False"/>
++      <depends_on name="iproute2-5.19.0" optional="False"/>
+       <depends_on name="lksctp-dev" optional="True"/>
+       <build type="waf" objdir="objdir" sourcedir="ns-3-dce">
+         <attribute name="supported_os" value="linux;linux2"/>
+@@ -2322,7 +2321,7 @@
  
      <module name="dce-quagga-1.11">
        <source type="git">
