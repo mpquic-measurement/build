@@ -2,7 +2,9 @@ FROM ns3-dce-fec:20.04
 
 RUN sudo apt-get update && sudo apt-get install -y vim nano tree libcurl4-openssl-dev golang libevent-dev
 
-RUN git clone https://github.com/mpquic-measurement/picoquic.git
+RUN git clone https://github.com/mpquic-measurement/picoquic.git && \
+    cd picoquic && \
+    git checkout 9c003ac9ceab7e58a3fe4ad862a2c02a717bc2e3
 
 COPY picoquic.patch ./picoquic
 
@@ -13,8 +15,11 @@ RUN cd picoquic && git apply --whitespace=warn < ./picoquic.patch && \
 WORKDIR /home/ns3dce
 
 RUN git clone https://github.com/alibaba/xquic.git && \
-    cd xquic && git clone https://github.com/google/boringssl.git ./third_party/boringssl && \
+    cd xquic && \
+    git checkout 78cf6d1e50d4ebe8fb51fddfbdb55d36a5798386 && \
+    git clone https://github.com/google/boringssl.git ./third_party/boringssl && \
     cd ./third_party/boringssl && \
+    git checkout 6a7d8b54725d6e762f758726464da2dc2e112435 && \
     mkdir -p build && cd build && \
     cmake -DBUILD_SHARED_LIBS=0 -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" .. && \
     make ssl crypto -j$(nproc)
