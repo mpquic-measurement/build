@@ -3,6 +3,7 @@ FROM ns3-dce-fec:20.04
 RUN sudo apt-get update && sudo apt-get install -y vim nano tree libcurl4-openssl-dev golang libevent-dev
 
 RUN git clone https://github.com/mpquic-measurement/picoquic.git && \
+    cd picoquic && \
     git checkout 9c003ac9ceab7e58a3fe4ad862a2c02a717bc2e3
 
 COPY picoquic.patch ./picoquic
@@ -14,6 +15,7 @@ RUN cd picoquic && git apply --whitespace=warn < ./picoquic.patch && \
 WORKDIR /home/ns3dce
 
 RUN git clone https://github.com/alibaba/xquic.git && \
+    cd xquic && \
     git checkout 78cf6d1e50d4ebe8fb51fddfbdb55d36a5798386 && \
     cd xquic && git clone https://github.com/google/boringssl.git ./third_party/boringssl && \
     cd ./third_party/boringssl && \
